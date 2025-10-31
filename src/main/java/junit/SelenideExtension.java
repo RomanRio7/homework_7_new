@@ -11,7 +11,7 @@ public class SelenideExtension implements BeforeAllCallback, AfterEachCallback {
     @Override
     public void beforeAll(ExtensionContext context) {
         Configuration.baseUrl = "https://cinescope.t-qa.ru";
-        Configuration.browser = "chrome"; // или "chrome"
+        Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10000;
 

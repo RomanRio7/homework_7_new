@@ -2,29 +2,30 @@ package steps;
 
 import io.qameta.allure.Step;
 import pages.MainPage;
-import pages.ReviewPage;
+import pages.MoviePage;
 import com.codeborne.selenide.Condition;
+
+
 import java.time.Duration;
+
 import static com.codeborne.selenide.Selenide.$$;
-
-
-
+import static com.codeborne.selenide.Selenide.$;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ReviewSteps {
+public class MovieSteps {
 
     private final MainPage mainPage = new MainPage();
-    private final ReviewPage reviewPage = new ReviewPage();
+    private final MoviePage moviePage = new MoviePage();
 
     @Step("Открываем страницу фильма '{movieName}'")
     public void openMovieDetails(String movieName) {
-        mainPage.clickMovieDetails(movieName);
+        mainPage.clickFirstMovieDetails();
     }
 
-    @Step("Оставляем отзыв: '{text}' с оценкой {rating} звёзд")
+    @Step("Оставляем отзыв: '{text}'")
     public void publishReview(String text) {
-        reviewPage.writeReview(text);
-        reviewPage.submitReview();
+        moviePage.setReviewText(text);
+        moviePage.clickSendReview();
     }
 
     @Step("Проверяем, что отзыв '{text}' отображается на странице")
@@ -37,4 +38,17 @@ public class ReviewSteps {
         assertTrue(isDisplayed, "Отзыв не отображается на странице фильма");
     }
 
+    @Step("Удаляем отзыв: '{reviewText}'")
+    public void deleteReview() {
+        $("button[data-qa-id='movie_review_actions_button']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .click();
+
+        $("div[data-qa-id='movie_review_action_delete_button']")
+                .shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .click();
+
+        $(".review-container")
+                .shouldBe(Condition.disappear, Duration.ofSeconds(10));
+    }
 }

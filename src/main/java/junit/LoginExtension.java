@@ -1,14 +1,15 @@
 package junit;
 
-import com.codeborne.selenide.Selenide;
-import pages.LoginPage;
-import org.junit.jupiter.api.extension.*;
+import org.junit.jupiter.api.extension.BeforeAllCallback;
+import org.junit.jupiter.api.extension.ExtensionContext;
+import steps.LoginSteps;
 
-public class LoginExtension implements BeforeEachCallback {
+public class LoginExtension implements BeforeAllCallback {
 
     @Override
-    public void beforeEach(ExtensionContext context) {
-        Selenide.open("/login");
-        new LoginPage().login("roman_sarsengaliev@mail.ru", "baXfo8-nyptyc-jicxob");
+    public void beforeAll(ExtensionContext context) {
+        LoginSteps loginSteps = new LoginSteps();
+        loginSteps.openLoginPage();
+        loginSteps.login("roman_sarsengaliev@mail.ru", "baXfo8-nyptyc-jicxob");
     }
 }

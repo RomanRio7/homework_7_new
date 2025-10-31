@@ -2,14 +2,12 @@ package tests;
 
 import junit.UITest;
 import org.junit.jupiter.api.Test;
-import pages.MainPage;
-import steps.ReviewSteps;
+import steps.MovieSteps;
 
 @UITest
 public class ReviewPublicationTest {
 
-    private final MainPage mainPage = new MainPage();
-    private final ReviewSteps reviewSteps = new ReviewSteps();
+    private final MovieSteps reviewSteps = new MovieSteps();
 
     @Test
     public void successfulReviewPublication() {
@@ -19,5 +17,6 @@ public class ReviewPublicationTest {
         reviewSteps.openMovieDetails(movieName);
         reviewSteps.publishReview(reviewText);
         reviewSteps.verifyReviewDisplayed(reviewText);
+        reviewSteps.deleteReview();
     }
 }

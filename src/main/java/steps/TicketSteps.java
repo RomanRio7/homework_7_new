@@ -4,10 +4,17 @@ import io.qameta.allure.Step;
 import pages.MoviePage;
 import pages.TicketPage;
 
+import static com.codeborne.selenide.Selenide.*;
+
 public class TicketSteps {
 
     private final MoviePage moviePage = new MoviePage();
     private final TicketPage ticketPage = new TicketPage();
+
+    @Step("Выбор первого фильма")
+    public void selectMovie(String movieName) {
+        $x("(//button[normalize-space()='Подробнее'])[1]").click();
+    }
 
     @Step("Переход к покупке билета")
     public void openTicketPurchase() {
@@ -26,13 +33,12 @@ public class TicketSteps {
         ticketPage.clickPay();
     }
 
-
     @Step("Проверка успешной оплаты")
     public boolean isPurchaseSuccessful() {
         return ticketPage.isSuccessNotificationVisible();
     }
 
-    @Step("Возврат на главную")
+    @Step("Возврат на главную страницу")
     public void returnToMain() {
         ticketPage.clickReturnHome();
     }

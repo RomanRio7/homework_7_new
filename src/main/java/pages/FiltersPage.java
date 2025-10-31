@@ -1,29 +1,26 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
 
 public class FiltersPage {
-    public void selectSity(String sity) {
-        $$("button[role='combobox']").findBy(text("Все")).click();
-        $$("div").findBy(text(sity)).click();
-        sleep(1000);
+
+    private final SelenideElement sityDropdown = $$("button[role='combobox']").findBy(text("Все"));
+    private final SelenideElement genreDropdown = $$("button[role='combobox']").findBy(text("Все"));
+    private final SelenideElement moreButton = $$("button").findBy(text("Подробнее"));
+
+    public void selectCity(String сity) {
+        sityDropdown.shouldBe(visible).click();
+        $$("div").findBy(text(сity)).click();
     }
 
     public void selectGenre(String genre) {
-        $$("button[role='combobox']").findBy(text("Все")).click();
+        genreDropdown.shouldBe(visible).click();
         $$("div").findBy(text(genre)).click();
-        sleep(1000);
     }
 
     public void clickMoreButton() {
-        $$("button")
-                .findBy(text("Подробнее"))
-                .shouldBe(visible)
-                .click();
-    }
-
-    public boolean verifyMovieGenre(String genre) {
-        return $$("p.text-lg.mt-5").texts().stream().anyMatch(text -> text.contains(genre));
+        moreButton.shouldBe(visible).click();
     }
 }

@@ -1,50 +1,55 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
+import java.time.Duration;
 
 public class TicketPage {
+
+    private final SelenideElement ticketCountInput = $("#amount");
+    private final SelenideElement cardNumberInput = $("#card\\.cardNumber");
+    private final SelenideElement cardHolderInput = $("#card\\.cardholderName");
+    private final SelenideElement monthDropdown = $("#month + select");
+    private final SelenideElement yearDropdown = $("#year + select");
+    private final SelenideElement cvcInput = $("#cvc");
+    private final SelenideElement payButton = $$("button").findBy(text("Оплатить"));
+    private final SelenideElement returnHomeButton = $$("button").findBy(text("Вернуться на главную"));
+    private final SelenideElement successNotification = $("body");
+
     public void setTicketCount(String count) {
-        $("#amount").setValue(count);
+        ticketCountInput.shouldBe(visible).setValue(count);
     }
 
     public void setCardNumber(String cardNumber) {
-        $("#card\\.cardNumber").setValue(cardNumber);
+        cardNumberInput.shouldBe(visible).setValue(cardNumber);
     }
 
     public void setCardHolderName(String name) {
-        $("#card\\.cardholderName").setValue(name);
+        cardHolderInput.shouldBe(visible).setValue(name);
     }
 
     public void selectMonth(String month) {
-        actions().moveToElement($("#month")).click().perform();
-        $("#month + select").selectOptionByValue(month);
+        monthDropdown.selectOptionByValue(month);
     }
 
     public void selectYear(String year) {
-        actions().moveToElement($("#year")).click().perform();
-        $("#year + select").selectOptionByValue(year);
-        $("body").click();
+        yearDropdown.selectOptionByValue(year);
     }
 
     public void setCvc(String cvc) {
-        $("#cvc").setValue(cvc);
+        cvcInput.shouldBe(visible).setValue(cvc);
     }
 
     public void clickPay() {
-        $$("button").findBy(text("Оплатить")).click();
+        payButton.shouldBe(visible).click();
     }
 
     public boolean isSuccessNotificationVisible() {
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return $("body").has(text("Спасибо за покупку"));
+        return successNotification.shouldHave(text("Спасибо за покупку"), Duration.ofSeconds(2)).exists();
     }
 
     public void clickReturnHome() {
-        $$("button").findBy(text("Вернуться на главную")).click();
+        returnHomeButton.shouldBe(visible).click();
     }
 }

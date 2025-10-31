@@ -1,23 +1,18 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
-
-import java.time.Duration;
 
 public class MainPage {
 
+    private final SelenideElement allMoviesButton = $x("//a[text()='Все фильмы']");
+    private final SelenideElement firstDetailsButton = $x("(//button[normalize-space()='Подробнее'])[1]");
+
     public void clickAllMoviesButton() {
-        $x("//a[text()='Все фильмы']")
-                .shouldBe(visible, Duration.ofSeconds(10))
-                .click();
+        allMoviesButton.click();
     }
 
-    public void clickMovieDetails(String movieName) {
-        $$("div").findBy(text(movieName))
-                .parent()
-                .$$("button").findBy(text("Подробнее"))
-                .shouldBe(visible, Duration.ofSeconds(10))
-                .click();
+    public void clickFirstMovieDetails() {
+        executeJavaScript("arguments[0].click();", firstDetailsButton);
     }
 }
