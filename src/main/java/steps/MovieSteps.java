@@ -19,7 +19,11 @@ public class MovieSteps {
 
     @Step("Открываем страницу фильма '{movieName}'")
     public void openMovieDetails(String movieName) {
-        mainPage.clickFirstMovieDetails();
+        $$("div.rounded-xl.border.bg-card.text-card-foreground.shadow")
+                .findBy(Condition.text(movieName))
+                .shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .find("button")
+                .click();
     }
 
     @Step("Оставляем отзыв: '{text}'")

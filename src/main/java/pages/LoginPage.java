@@ -5,6 +5,8 @@ import io.qameta.allure.Step;
 
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Condition.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.time.Duration;
 
 public class LoginPage {
@@ -30,8 +32,8 @@ public class LoginPage {
     }
 
     @Step("Проверяем, что пользователь успешно вошёл в систему")
-    public boolean isLoggedIn() {
+    public void verifyUserLoggedIn() {
         profileButton.shouldBe(visible, Duration.ofSeconds(10));
-        return profileButton.exists();
+        assertTrue(profileButton.exists(), "Пользователь не вошёл в систему — кнопка 'Профиль' не найдена");
     }
 }

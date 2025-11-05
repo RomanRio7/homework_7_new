@@ -1,8 +1,11 @@
 package steps;
 
+import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import pages.MoviePage;
 import pages.TicketPage;
+
+import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -13,7 +16,11 @@ public class TicketSteps {
 
     @Step("Выбор первого фильма")
     public void selectMovie(String movieName) {
-        $x("(//button[normalize-space()='Подробнее'])[1]").click();
+        $$("div.rounded-xl.border.bg-card.text-card-foreground.shadow")
+                .findBy(Condition.text(movieName))
+                .shouldBe(Condition.visible, Duration.ofSeconds(10))
+                .find("button")
+                .click();
     }
 
     @Step("Переход к покупке билета")

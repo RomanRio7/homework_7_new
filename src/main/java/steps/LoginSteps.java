@@ -11,7 +11,7 @@ public class LoginSteps {
         loginPage.setEmail(email);
         loginPage.setPassword(password);
         loginPage.clickLoginButton();
-        loginPage.isLoggedIn();
+        loginPage.verifyUserLoggedIn();
     }
 
     public void openLoginPage() {

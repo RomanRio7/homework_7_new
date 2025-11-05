@@ -22,6 +22,5 @@ public class SelenideExtension implements BeforeAllCallback, AfterEachCallback {
     @Override
     public void afterEach(ExtensionContext context) {
         WebDriverRunner.closeWebDriver();
-        SelenideLogger.removeListener("AllureSelenide");
     }
 }

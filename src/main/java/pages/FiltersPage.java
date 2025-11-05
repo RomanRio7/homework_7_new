@@ -6,13 +6,13 @@ import static com.codeborne.selenide.Condition.*;
 
 public class FiltersPage {
 
-    private final SelenideElement sityDropdown = $$("button[role='combobox']").findBy(text("Все"));
-    private final SelenideElement genreDropdown = $$("button[role='combobox']").findBy(text("Все"));
+    private final SelenideElement cityDropdown = $("[data-qa-id='movies_filter_location_select']").closest("button");
+    private final SelenideElement genreDropdown = $$("button[role='combobox']").get(1);
     private final SelenideElement moreButton = $$("button").findBy(text("Подробнее"));
 
-    public void selectCity(String сity) {
-        sityDropdown.shouldBe(visible).click();
-        $$("div").findBy(text(сity)).click();
+    public void selectCity(String city) {
+        cityDropdown.shouldBe(visible).click();
+        $$("div").findBy(text(city)).click();
     }
 
     public void selectGenre(String genre) {
