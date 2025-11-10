@@ -1,20 +1,18 @@
 package steps;
 
 import io.qameta.allure.Step;
-import pages.MainPage;
 import pages.MoviePage;
 import com.codeborne.selenide.Condition;
-
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.$;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MovieSteps {
 
-    private final MainPage mainPage = new MainPage();
     private final MoviePage moviePage = new MoviePage();
 
     @Step("Открываем страницу фильма '{movieName}'")
@@ -24,6 +22,11 @@ public class MovieSteps {
                 .shouldBe(Condition.visible, Duration.ofSeconds(10))
                 .find("button")
                 .click();
+    }
+
+    @Step("Переходим к покупке билета")
+    public void openTicketPurchase() {
+        moviePage.clickBuyTicket();
     }
 
     @Step("Оставляем отзыв: '{text}'")
@@ -54,5 +57,11 @@ public class MovieSteps {
 
         $(".review-container")
                 .shouldBe(Condition.disappear, Duration.ofSeconds(10));
+    }
+
+    @Step("Проверяем, что жанр фильма совпадает с ожидаемым ({expectedGenre})")
+    public void verifyMovieGenre(String expectedGenre) {
+        String actualGenre = moviePage.getMovieGenre();
+        assertEquals(expectedGenre, actualGenre, "Жанр фильма не совпадает с ожидаемым!");
     }
 }

@@ -2,7 +2,6 @@ package steps;
 
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
-import pages.MoviePage;
 import pages.TicketPage;
 
 import java.time.Duration;
@@ -11,10 +10,9 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class TicketSteps {
 
-    private final MoviePage moviePage = new MoviePage();
     private final TicketPage ticketPage = new TicketPage();
 
-    @Step("Выбор первого фильма")
+    @Step("Выбор фильма '{movieName}'")
     public void selectMovie(String movieName) {
         $$("div.rounded-xl.border.bg-card.text-card-foreground.shadow")
                 .findBy(Condition.text(movieName))
@@ -23,12 +21,7 @@ public class TicketSteps {
                 .click();
     }
 
-    @Step("Переход к покупке билета")
-    public void openTicketPurchase() {
-        moviePage.clickBuyTicket();
-    }
-
-    @Step("Покупка билета: {count} шт., карта: {cardNumber}, владелец: {holder}")
+    @Step("Покупаем {count} билет(а/ов): карта {cardNumber}, владелец {holder}")
     public void buyTicket(String count, String cardNumber, String holder,
                           String month, String year, String cvc) {
         ticketPage.setTicketCount(count);
@@ -40,12 +33,12 @@ public class TicketSteps {
         ticketPage.clickPay();
     }
 
-    @Step("Проверка успешной оплаты")
+    @Step("Проверяем успешную оплату билета")
     public boolean isPurchaseSuccessful() {
         return ticketPage.isSuccessNotificationVisible();
     }
 
-    @Step("Возврат на главную страницу")
+    @Step("Возвращаемся на главную страницу")
     public void returnToMain() {
         ticketPage.clickReturnHome();
     }

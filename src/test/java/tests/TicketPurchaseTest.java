@@ -1,25 +1,35 @@
 package tests;
 
 import junit.UITest;
-import steps.TicketSteps;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import steps.MovieSteps;
+import steps.TicketSteps;
 
 @UITest
 public class TicketPurchaseTest {
 
+    private final MovieSteps movieSteps = new MovieSteps();
     private final TicketSteps ticketSteps = new TicketSteps();
 
     @Test
     public void successfulTicketPurchase() {
         String movieName = "Jujutsu kaisen";
 
+        // Выбираем фильм
         ticketSteps.selectMovie(movieName);
-        ticketSteps.openTicketPurchase();
+
+        // Переходим к покупке (этот степ теперь в MainPageSteps)
+        movieSteps.openTicketPurchase();
+
+        // Покупаем билет
         ticketSteps.buyTicket("2", "4242424242424242", "Test User", "12", "25", "123");
 
-        Assertions.assertTrue(ticketSteps.isPurchaseSuccessful(), "Покупка билета не прошла успешно");
+        // Проверяем, что покупка успешна
+        Assertions.assertTrue(ticketSteps.isPurchaseSuccessful(),
+                "Покупка билета не прошла успешно");
 
+        // Возвращаемся на главную страницу
         ticketSteps.returnToMain();
     }
 }
