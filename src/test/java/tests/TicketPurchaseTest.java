@@ -5,19 +5,21 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import steps.MovieSteps;
 import steps.TicketSteps;
+import steps.MainSteps;
 
 @UITest
 public class TicketPurchaseTest {
 
     private final MovieSteps movieSteps = new MovieSteps();
     private final TicketSteps ticketSteps = new TicketSteps();
+    private final MainSteps mainSteps = new MainSteps();
 
     @Test
     public void successfulTicketPurchase() {
         String movieName = "Jujutsu kaisen";
 
         // Выбираем фильм
-        ticketSteps.selectMovie(movieName);
+        mainSteps.selectMovie(movieName);
 
         // Переходим к покупке (этот степ теперь в MainPageSteps)
         movieSteps.openTicketPurchase();
