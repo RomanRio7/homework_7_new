@@ -15,15 +15,6 @@ public class MovieSteps {
 
     private final MoviePage moviePage = new MoviePage();
 
-    @Step("Открываем страницу фильма '{movieName}'")
-    public void openMovieDetails(String movieName) {
-        $$("div.rounded-xl.border.bg-card.text-card-foreground.shadow")
-                .findBy(Condition.text(movieName))
-                .shouldBe(Condition.visible, Duration.ofSeconds(10))
-                .find("button")
-                .click();
-    }
-
     @Step("Переходим к покупке билета")
     public void openTicketPurchase() {
         moviePage.clickBuyTicket();

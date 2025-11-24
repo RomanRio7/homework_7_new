@@ -16,7 +16,7 @@ public class TicketPurchaseTest {
 
     @Test
     public void successfulTicketPurchase() {
-        String movieName = "Jujutsu kaisen";
+        String movieName = "Фильм автотест a80df678-8135-491a-b55d-3d016aedacca";
 
         // Выбираем фильм
         mainSteps.selectMovie(movieName);
