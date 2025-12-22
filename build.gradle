@@ -11,13 +11,22 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.3'
-    implementation 'com.codeborne:selenide:7.3.1'
-    testImplementation("io.qameta.allure:allure-junit5:2.29.1")
-    implementation("io.qameta.allure:allure-selenide:2.29.1")
+
+    testImplementation 'com.codeborne:selenide:7.3.1'
+
+    testImplementation 'io.qameta.allure:allure-junit5:2.29.1'
+    testImplementation 'io.qameta.allure:allure-selenide:2.29.1'
 }
 
 test {
     useJUnitPlatform()
+
+    systemProperty "baseUrl", System.getProperty("baseUrl", "https://cinescope.t-qa.ru")
+    systemProperty "userEmail", System.getProperty("userEmail", "roman_sarsengaliev@mail.ru")
+    systemProperty "userPassword", System.getProperty("userPassword", "baXfo8-nyptyc-jicxob")
+    systemProperty "browser", System.getProperty("browser", "chrome")
+    systemProperty "browserSize", System.getProperty("browserSize", "1920x1080")
+    systemProperty "timeoutMs", System.getProperty("timeoutMs", "10000")
 }

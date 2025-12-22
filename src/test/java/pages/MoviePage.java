@@ -1,9 +1,11 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Condition.*;
+
 import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 public class MoviePage {
 
@@ -16,15 +18,15 @@ public class MoviePage {
         buyTicketButton.shouldBe(visible).click();
     }
 
-    public String getMovieGenre() {
+    public String readGenre() {
         return genreText.shouldBe(visible).getText().replace("Жанр:", "").trim();
     }
 
-    public void setReviewText(String text) {
-        reviewInput.shouldBe(visible, Duration.ofSeconds(1)).setValue(text);
+    public void typeReview(String text) {
+        reviewInput.shouldBe(visible, Duration.ofSeconds(5)).setValue(text);
     }
 
-    public void clickSendReview() {
+    public void sendReview() {
         sendReviewButton.shouldBe(visible).click();
     }
 }
